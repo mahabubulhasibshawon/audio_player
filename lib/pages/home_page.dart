@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
         //       return listtile ui
               return ListTile(
                 title: Text(audioModel.audioName),
-                subtitle: Text(audioModel.artistName),
+                subtitle: Text(audioModel.audioSource),
                 leading: Image.asset(audioModel.albumArtImagePath),
                 onTap: ()=> goToAudio(index),
               );
