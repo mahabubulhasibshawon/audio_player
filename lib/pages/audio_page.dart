@@ -98,7 +98,7 @@ class AudioPage extends StatelessWidget {
                           children: [
                             Text(formatTime(value.currentDuration)),
                             Icon(CupertinoIcons.shuffle),
-                            Icon(CupertinoIcons.repeat),
+                            IconButton(onPressed: value.repeatAudio, icon: Icon(CupertinoIcons.repeat, color: value.isRepeatEnabled ? Colors.green : Theme.of(context).colorScheme.inversePrimary,)),
                             Text(formatTime(value.totalDuration)),
                           ],
                         ),

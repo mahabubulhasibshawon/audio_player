@@ -41,7 +41,7 @@ Welcome to the Flutter Audio Player App! This app offers a minimalistic design a
 ## Customization
 
 Feel free to modify the design or functionality:
-- Update the theme in `theme.dart`.
+- Update the theme in themes.
 - Add or customize audio files in the relevant folder.
 - Enhance navigation options in the custom drawer.
 

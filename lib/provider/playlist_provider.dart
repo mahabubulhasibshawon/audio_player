@@ -86,7 +86,10 @@ class PlaylistProvider extends ChangeNotifier {
 
   // play next audio
   void playNextAudio() {
-    if (_currentAudioIndex != null) {
+    if (_isRepeatEnabled) {
+      play();
+    }
+    else if (_currentAudioIndex != null) {
       if (_currentAudioIndex! < _playlist.length - 1) {
         //   go to the next audio if it's not the last audio
         currentAudioIndex = _currentAudioIndex! + 1;
@@ -109,6 +112,12 @@ class PlaylistProvider extends ChangeNotifier {
       }
     }
   }
+  // repeat audio
+  bool _isRepeatEnabled = false;
+  void repeatAudio() {
+    _isRepeatEnabled = !_isRepeatEnabled;
+    notifyListeners();
+  }
 
   // listen to duration
   void listenToDuration() {
@@ -124,7 +133,11 @@ class PlaylistProvider extends ChangeNotifier {
     });
     //   listen for audio completion
     _audioPlayer.onPlayerComplete.listen((event) {
-      playNextAudio();
+      if (_isRepeatEnabled) {
+        play(); // Replay the current audio
+      } else {
+        playNextAudio(); // Move to the next audio
+      }
     });
   }
   // dispose audio player
@@ -134,6 +147,7 @@ class PlaylistProvider extends ChangeNotifier {
 
   int? get currentAudioIndex => _currentAudioIndex;
   bool get isPlaying => _isPlaying;
+  bool get isRepeatEnabled => _isRepeatEnabled;
   Duration get currentDuration => _currentDuration;
   Duration get totalDuration => _totalDuration;
 
