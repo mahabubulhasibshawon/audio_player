@@ -9,17 +9,17 @@ class PlaylistProvider extends ChangeNotifier {
         audioName: "Surah Al Fatiha",
         audioSource: 'Al QURAN : 001',
         albumArtImagePath: 'assets/images/album_art_1.jpg',
-        audioPath: 'assets/audio/001_Al-Fatiha.mp3'),
+        audioPath: 'audio/001_Al-Fatiha.mp3'),
     AudioModel(
         audioName: "Surah Al Falaq",
         audioSource: 'Al QURAN : 113',
         albumArtImagePath: 'assets/images/album_art_2.png',
-        audioPath: 'assets/audio/113_Al-Falaq.mp3'),
+        audioPath: 'audio/113_Al-Falaq.mp3'),
     AudioModel(
         audioName: "Surah An Nas",
         audioSource: 'Al QURAN : 114',
         albumArtImagePath: 'assets/images/album_art_3.jpg',
-        audioPath: 'assets/audio/114_An-Nas.mp3'),
+        audioPath: 'audio/114_An-Nas.mp3'),
   ];
 
   // current audio index
@@ -36,17 +36,23 @@ class PlaylistProvider extends ChangeNotifier {
   Duration _totalDuration = Duration.zero;
 
   // constructors
-  PlaylistProvider() {listenToDuration();}
+  PlaylistProvider() {
+    listenToDuration();
+  }
   // initially not playing
   bool _isPlaying = false;
 
   // play the audio
   void play() async {
-    final String path = _playlist[_currentAudioIndex!].audioPath;
-    await _audioPlayer.stop();
-    await _audioPlayer.play(AssetSource(path));
-    _isPlaying = true;
-    notifyListeners();
+    try {
+      final String path = _playlist[_currentAudioIndex!].audioPath;
+      await _audioPlayer.stop();
+      await _audioPlayer.play(AssetSource(path));
+      _isPlaying = true;
+      notifyListeners();
+    } catch (e) {
+      print('Error playing audio : $e');
+    }
   }
 
   // pause current audio
@@ -55,63 +61,68 @@ class PlaylistProvider extends ChangeNotifier {
     _isPlaying = false;
     notifyListeners();
   }
+
   // resume playing
   void resume() async {
     await _audioPlayer.resume();
-    _isPlaying =  true;
+    _isPlaying = true;
     notifyListeners();
   }
+
   // pause or resume
   void pauseOrResume() async {
-    if(_isPlaying) {
+    if (_isPlaying) {
       pause();
     } else {
       resume();
     }
     notifyListeners();
   }
+
   // seek to a specific position in the current
   void seek(Duration position) async {
     await _audioPlayer.seek(position);
   }
+
   // play next audio
   void playNextAudio() {
-    if(_currentAudioIndex != null) {
-      if(_currentAudioIndex! < _playlist.length -1) {
-      //   go to the next audio if it's not the last audio
+    if (_currentAudioIndex != null) {
+      if (_currentAudioIndex! < _playlist.length - 1) {
+        //   go to the next audio if it's not the last audio
         currentAudioIndex = _currentAudioIndex! + 1;
       } else {
-      //   go to 1st audio if it's the last
+        //   go to 1st audio if it's the last
         currentAudioIndex = 0;
       }
     }
   }
+
   // play previous audio
   void playPreviousAudio() async {
-    if(_currentDuration.inSeconds > 2) {}
-    else {
-      if(_currentAudioIndex! > 0) {
-        currentAudioIndex = _currentAudioIndex! -1;
-      }
-      else {
-      //   if it's the first audio the loop back to last one
-        currentAudioIndex = _playlist.length -1;
+    if (_currentDuration.inSeconds > 2) {
+    } else {
+      if (_currentAudioIndex! > 0) {
+        currentAudioIndex = _currentAudioIndex! - 1;
+      } else {
+        //   if it's the first audio the loop back to last one
+        currentAudioIndex = _playlist.length - 1;
       }
     }
   }
+
   // listen to duration
   void listenToDuration() {
-  //   listen for total duration
+    //   listen for total duration
     _audioPlayer.onDurationChanged.listen((newDuration) {
       _totalDuration = newDuration;
       notifyListeners();
     });
-  //   listen for current duration
+    //   listen for current duration
     _audioPlayer.onPositionChanged.listen((newPosition) {
       _currentDuration = newPosition;
       notifyListeners();
     });
-  //   listen for audio completion
+    //   listen for audio completion
     _audioPlayer.onPlayerComplete.listen((event) {
       playNextAudio();
     });

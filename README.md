@@ -1,16 +1,47 @@
-# audio_player
+# Flutter Audio Player App
 
-A new Flutter project.
+Welcome to the Flutter Audio Player App! This app offers a minimalistic design and seamless audio playback experience. It uses **Provider** for efficient state management and features a custom drawer with a dark and light mode toggle for enhanced user experience.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- **Home Page**: View and select audio tracks to play.
+- **Audio Player Page**: Enjoy audio playback with intuitive controls.
+- **Custom Drawer**: Access navigation and toggle between dark and light mode.
+- **Minimal Design**: Simple and user-friendly interface.
+- **State Management**: Built with Provider for optimal performance.
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots
+![ap1.png](screenshots%2Fap1.png)
+![ap2.png](screenshots%2Fap2.png)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## How to Run the App
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/mahabubulhasibshawon/audio_player.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd flutter_audio_player
+   ```
+3. Install dependencies:
+   ```bash
+   flutter pub get
+   ```
+4. Run the app:
+   ```bash
+   flutter run
+   ```
+
+## Dependencies
+
+- **Provider**: State management
+- **Flutter SDK**: For cross-platform app development
+
+## Customization
+
+Feel free to modify the design or functionality:
+- Update the theme in `theme.dart`.
+- Add or customize audio files in the relevant folder.
+- Enhance navigation options in the custom drawer.
+

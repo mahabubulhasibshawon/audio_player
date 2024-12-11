@@ -1,3 +1,4 @@
+import 'package:audio_player/pages/pages.dart';
 import 'package:audio_player/provider/playlist_provider.dart';
 import 'package:audio_player/utils/neu_box.dart';
 import 'package:flutter/cupertino.dart';
@@ -47,7 +48,9 @@ class AudioPage extends StatelessWidget {
                       //   title
                       const Text('P L A Y L I S T'),
                       //   menu btn
-                      IconButton(onPressed: () {}, icon: const Icon(Icons.menu))
+                      IconButton(onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
+                      }, icon: const Icon(Icons.menu))
                     ],
                   ),
                   //   album art work
